@@ -1,0 +1,13 @@
+.wrapper {
+    display: flex;
+    height: 100vh;
+}
+  
+.users-list {
+    width: 20%;
+    border-right: 2px black solid;
+}
+
+.map-viewer {
+    width: 80%;
+}
