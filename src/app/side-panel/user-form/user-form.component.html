@@ -1,28 +1,30 @@
-<table>
-    <tr>
-        <td> Name: </td>
-        <td> <input name="name" [(ngModel)]="user.name"> </td>
-    </tr>
-    <tr>
-        <td> Mail: </td>
-        <td> <input name="mail" type="email" [(ngModel)]="user.email"> </td>
-    </tr>
-    <tr>
-        <td> Address: </td>
-        <td> <input name="address" [(ngModel)]="user.address"> </td>
-    </tr>
-    <tr>
-        <td> AccessLevel: </td>
-        <td> <select name="accessLevel" [(ngModel)]="user.accessLevel"> 
-            <option value="ADMIN"> Admin </option>
-            <option value="USER"> User </option>
-        </select> </td>
-    </tr>
-    <tr>
-        <td> Home Location: </td>
-        <td *ngIf="user?.homeLocation">
-             {{user.homeLocation.longitude.toFixed(3)}} , {{user.homeLocation.latitude.toFixed(3)}}
-        </td>
-    </tr>
-</table>
-<button id="submitButton" (click)="submit()"> Submit </button>
+<form ngNativeValidate (ngSubmit)="submit()">
+    <table>
+        <tr>
+            <td> Name: </td>
+            <td> <input name="name" required [(ngModel)]="user.name"> </td>
+        </tr>
+        <tr>
+            <td> Mail: </td>
+            <td> <input name="mail" type="email" required [(ngModel)]="user.email"> </td>
+        </tr>
+        <tr>
+            <td> Address: </td>
+            <td> <input name="address" required [(ngModel)]="user.address"> </td>
+        </tr>
+        <tr>
+            <td> AccessLevel: </td>
+            <td> <select name="accessLevel" required [(ngModel)]="user.accessLevel"> 
+                <option value="ADMIN"> Admin </option>
+                <option value="USER"> User </option>
+            </select> </td>
+        </tr>
+        <tr>
+            <td> Home Location: </td>
+            <td *ngIf="user?.homeLocation">
+                {{user.homeLocation.longitude.toFixed(3)}} , {{user.homeLocation.latitude.toFixed(3)}}
+            </td>
+        </tr>
+    </table>
+    <button id="submitButton" type="submit"> Submit </button>
+</form>

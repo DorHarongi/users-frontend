@@ -20,19 +20,20 @@ export class UserFormComponent implements OnInit {
   isEditMode!: boolean; // edit or create
 
   ngOnInit(): void {
-    if(this.editedUser)
+    if(this.editedUser) // editing
     {
       this.mapEventsService.changeMapCenter(this.editedUser.homeLocation);
       this.isEditMode = true;
       this.user = new User(this.editedUser.name, this.editedUser.email, this.editedUser.address,
       this.editedUser.accessLevel, this.editedUser.homeLocation);
     }
-    else
+    else // creating
     {
       this.isEditMode = false;
       this.user = new User("", "", "", AccessLevel.USER, new Location(0, 0));
     }
 
+    //listen to map clicking to fill a new location in the form
     this.mapEventsService.mapClicked$.subscribe((location: Location)=>{
       this.user.homeLocation = location;
     })
