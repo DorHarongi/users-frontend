@@ -1,4 +1,5 @@
 import {gql} from 'apollo-angular'
+import { CreateUserInput, UpdateUserInput } from '../models/user-input.model';
 
 const GET_USERS = gql`
 query {
@@ -13,8 +14,38 @@ query {
       }
     }
   }
-`
+`;
 
-export {GET_USERS}
+const CREATE_USER = gql`
+mutation createUser($input: CreateUserInput!) {
+  createUser(createUserData: $input) {
+    name
+    email
+    address
+    accessLevel
+    homeLocation {
+      longitude
+      latitude
+    }
+  }
+}
+`;
+
+const EDIT_USER = gql`
+mutation editUser($input: UpdateUserInput!) {
+  updateUser(updateUserData: $input){
+    name
+    email
+    address
+    accessLevel
+    homeLocation {
+      longitude
+      latitude
+    }
+  }
+}
+`;
+
+export {GET_USERS, CREATE_USER, EDIT_USER}
 
 

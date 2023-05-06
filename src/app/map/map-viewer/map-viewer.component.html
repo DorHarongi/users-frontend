@@ -1,4 +1,4 @@
-<google-map (mapClick)="addMarker($event)">
+<google-map (mapClick)="mapClicked($event)">
     <map-marker *ngFor="let markerPosition of markerPositions"
     [position]="markerPosition"
     [options]="markerOptions">

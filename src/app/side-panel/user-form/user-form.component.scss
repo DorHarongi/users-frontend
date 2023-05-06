@@ -1,0 +1,18 @@
+td{
+    font-family: system-ui;
+}
+
+input, select{
+    border-radius: 5px;
+    margin-top: 1%;
+}
+
+#submitButton{
+    cursor: pointer;
+    margin-top: 25px;
+    border-radius: 5px;
+    width: 50%;
+    margin-left: 25%;
+    margin-bottom: 25px;
+    height: 30px;
+}

@@ -1,3 +1,15 @@
 <div id="container">
-    
+    <div *ngFor="let user of users; let i = index" class="listItem">
+        <div class="listItemContainer">
+            <p> {{ user.name }}</p>
+            <button id ="editButton" class="buttonIcons bi bi-pencil-square" (click)="openCreateForm(user)"> </button>
+        </div>
+        <app-user-form *ngIf="toggleEditUser && user.name == editedUserName" [editedUser]="users[i]"> </app-user-form>
+    </div>
+    <div class="listItem">
+        <div class="listItemContainer">
+            <button id= "addUserButton" class="buttonIcons bi bi-plus-circle" (click)="openCreateForm()"> </button>
+        </div>
+        <app-user-form *ngIf="toggleCreateUser"> </app-user-form>
+    </div>
 </div>
