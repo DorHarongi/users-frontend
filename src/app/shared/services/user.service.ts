@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { User } from '../models/user.model';
 import { Apollo } from 'apollo-angular';
 import { GET_USERS, EDIT_USER, CREATE_USER } from './graphql.queries';
@@ -11,9 +11,21 @@ import { CreateUserInput } from '../models/create-user-input.interface';
 
 export class UserService {
 
-  constructor(private apollo: Apollo) { }
+  constructor(private apollo: Apollo) { 
+    this.usersChangedSubject = new Subject<void>();
+    this.usersChanged$ = this.usersChangedSubject.asObservable();
+  }
 
   users: Array<User> = [];
+
+  usersChanged$: Observable<void>;
+  private usersChangedSubject: Subject<void>;
+
+  changeUsers(newUsers: Array<User>)
+  {
+    this.users = [...newUsers];
+    this.usersChangedSubject.next();
+  }
 
   getUsers(): Observable<any> {
     let users$: Observable<any>;

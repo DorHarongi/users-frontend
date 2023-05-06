@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { MapEventsService } from 'src/app/map/services/map-events.service';
 import { User } from 'src/app/shared/models/user.model';
 import { Location} from 'src/app/shared/models/location';
 import { AccessLevel } from 'src/app/shared/models/accessLevel.enum';
 import { UserService } from 'src/app/shared/services/user.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-user-form',
@@ -11,13 +12,17 @@ import { UserService } from 'src/app/shared/services/user.service';
   styleUrls: ['./user-form.component.scss']
 })
 
-export class UserFormComponent implements OnInit {
+export class UserFormComponent implements OnInit, OnDestroy {
 
   constructor(private mapEventsService: MapEventsService, private userService: UserService){}
 
   @Input() editedUser!: User
   @Output() userCreated: EventEmitter<User> = new EventEmitter<User>();
   @Output() userEdited: EventEmitter<User> = new EventEmitter<User>();
+
+  mapClickedSubscription!: Subscription;
+  userEditedResponseSubscription!: Subscription;
+  userCreatedResponseSubsciprtion!: Subscription;
 
   user!: User;
   isEditMode!: boolean; // edit or create
@@ -37,9 +42,15 @@ export class UserFormComponent implements OnInit {
     }
 
     //listen to map clicking to fill a new location in the form
-    this.mapEventsService.mapClicked$.subscribe((location: Location)=>{
+    this.mapClickedSubscription = this.mapEventsService.mapClicked$.subscribe((location: Location)=>{
       this.user.homeLocation = location;
     })
+  }
+
+  ngOnDestroy(): void {
+    this.mapClickedSubscription.unsubscribe();
+    this.userEditedResponseSubscription.unsubscribe();
+    this.userEditedResponseSubscription.unsubscribe();
   }
 
   submit(): void{
@@ -57,13 +68,13 @@ export class UserFormComponent implements OnInit {
 
     if(this.isEditMode)
     {
-      this.userService.editUser(userInput).subscribe((result)=>{
+      this.userEditedResponseSubscription = this.userService.editUser(userInput).subscribe((result)=>{
         this.userEdited.emit(this.user);
       })
     }
     else
     {
-      this.userService.createUser(userInput).subscribe((result)=>{
+      this.userCreatedResponseSubsciprtion = this.userService.createUser(userInput).subscribe((result)=>{
         this.userCreated.emit(this.user);
       })
     }
