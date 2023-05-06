@@ -49,8 +49,10 @@ export class UserFormComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.mapClickedSubscription.unsubscribe();
-    this.userEditedResponseSubscription.unsubscribe();
-    this.userEditedResponseSubscription.unsubscribe();
+    if(this.userEditedResponseSubscription)
+      this.userEditedResponseSubscription.unsubscribe();
+    if(this.userCreatedResponseSubsciprtion)
+    this.userCreatedResponseSubsciprtion.unsubscribe();
   }
 
   submit(): void{
