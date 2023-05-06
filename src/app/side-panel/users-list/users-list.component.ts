@@ -37,4 +37,22 @@ export class UsersListComponent implements OnInit {
     }
   }
 
+  handleUserCreated(user: User): void
+  {
+    this.users = [...this.users, user] // add the new user that we just created
+    this.toggleCreateUser = false;
+  }
+
+  handleUserEdited(user: User): void
+  {
+    let copyArray: Array<User> = [...this.users]
+
+    let editedUserIndex: number = copyArray.findIndex(item => item.name === user.name);
+    if(editedUserIndex > 0){
+      copyArray[editedUserIndex] = user;
+    }
+
+    this.users = copyArray;
+  }
+
 }

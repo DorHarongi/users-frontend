@@ -1,5 +1,4 @@
 import {gql} from 'apollo-angular'
-import { CreateUserInput, UpdateUserInput } from '../models/user-input.model';
 
 const GET_USERS = gql`
 query {

@@ -2,7 +2,7 @@
     <table>
         <tr>
             <td> Name: </td>
-            <td> <input name="name" required [(ngModel)]="user.name"> </td>
+            <td> <input name="name" required [(ngModel)]="user.name" [disabled]="isEditMode"> </td>
         </tr>
         <tr>
             <td> Mail: </td>

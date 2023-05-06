@@ -16,3 +16,7 @@ input, select{
     margin-bottom: 25px;
     height: 30px;
 }
+
+input:disabled {
+    cursor: not-allowed;
+}

@@ -3,7 +3,8 @@ import { Observable } from 'rxjs';
 import { User } from '../models/user.model';
 import { Apollo } from 'apollo-angular';
 import { GET_USERS, EDIT_USER, CREATE_USER } from './graphql.queries';
-import { CreateUserInput, UpdateUserInput } from '../models/user-input.model';
+import { UpdateUserInput } from '../models/update-user-input.interface';
+import { CreateUserInput } from '../models/create-user-input.interface';
 
 
 @Injectable()

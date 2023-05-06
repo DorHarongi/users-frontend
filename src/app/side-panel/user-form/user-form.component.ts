@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MapEventsService } from 'src/app/map/services/map-events.service';
 import { User } from 'src/app/shared/models/user.model';
 import { Location} from 'src/app/shared/models/location';
@@ -16,6 +16,9 @@ export class UserFormComponent implements OnInit {
   constructor(private mapEventsService: MapEventsService, private userService: UserService){}
 
   @Input() editedUser!: User
+  @Output() userCreated: EventEmitter<User> = new EventEmitter<User>();
+  @Output() userEdited: EventEmitter<User> = new EventEmitter<User>();
+
   user!: User;
   isEditMode!: boolean; // edit or create
 
@@ -55,13 +58,13 @@ export class UserFormComponent implements OnInit {
     if(this.isEditMode)
     {
       this.userService.editUser(userInput).subscribe((result)=>{
-        console.log(result);
+        this.userEdited.emit(this.user);
       })
     }
     else
     {
       this.userService.createUser(userInput).subscribe((result)=>{
-        (console.log(result));
+        this.userCreated.emit(this.user);
       })
     }
   }
