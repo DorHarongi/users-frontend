@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { MapClickingService } from './map-clicking.service';
+import { MapEventsService } from './map-events.service';
 
-describe('MapClickingService', () => {
-  let service: MapClickingService;
+describe('MapEventsService', () => {
+  let service: MapEventsService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(MapClickingService);
+    service = TestBed.inject(MapEventsService);
   });
 
   it('should be created', () => {

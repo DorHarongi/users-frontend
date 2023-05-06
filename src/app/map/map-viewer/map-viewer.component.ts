@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { GoogleMap } from '@angular/google-maps';
 import { Location } from 'src/app/shared/models/location';
 import { User } from 'src/app/shared/models/user.model';
 import { UserService } from 'src/app/shared/services/user.service';
-import { MapClickingService } from '../services/map-clicking.service';
+import { MapEventsService } from '../services/map-events.service';
 
 @Component({
   selector: 'app-map-viewer',
@@ -11,20 +12,28 @@ import { MapClickingService } from '../services/map-clicking.service';
 })
 export class MapViewerComponent implements OnInit {
 
-  constructor(private userService: UserService, private mapClickingService: MapClickingService){}
+  constructor(private userService: UserService, private mapEventsService: MapEventsService){}
 
   markerPositions: google.maps.LatLngLiteral[] = [];
   markerOptions: google.maps.MarkerOptions = {
     draggable: false
   };
+  mapCenter!: google.maps.LatLngLiteral;
 
   ngOnInit(): void {
     this.addMarkersForUsers();
+
+    this.mapEventsService.mapCenterChange$.subscribe((center: Location)=>{
+      this.mapCenter = {
+        lat: center.latitude,
+        lng: center.longitude
+      }
+    })
   }
 
   mapClicked(event: google.maps.MapMouseEvent) {
     if(event.latLng)
-      this.mapClickingService.emitLocation(new Location(event.latLng.toJSON().lng, event.latLng.toJSON().lat));
+      this.mapEventsService.emitLocation(new Location(event.latLng.toJSON().lng, event.latLng.toJSON().lat));
   }
 
   addMarkersForUsers(): void{

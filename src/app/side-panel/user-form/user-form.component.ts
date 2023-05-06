@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MapClickingService } from 'src/app/map/services/map-clicking.service';
+import { MapEventsService } from 'src/app/map/services/map-events.service';
 import { User } from 'src/app/shared/models/user.model';
 import { Location} from 'src/app/shared/models/location';
 import { AccessLevel } from 'src/app/shared/models/accessLevel.enum';
@@ -13,7 +13,7 @@ import { UserService } from 'src/app/shared/services/user.service';
 
 export class UserFormComponent implements OnInit {
 
-  constructor(private mapClickingService: MapClickingService, private userService: UserService){}
+  constructor(private mapEventsService: MapEventsService, private userService: UserService){}
 
   @Input() editedUser!: User
   user!: User;
@@ -22,6 +22,7 @@ export class UserFormComponent implements OnInit {
   ngOnInit(): void {
     if(this.editedUser)
     {
+      this.mapEventsService.changeMapCenter(this.editedUser.homeLocation);
       this.isEditMode = true;
       this.user = new User(this.editedUser.name, this.editedUser.email, this.editedUser.address,
       this.editedUser.accessLevel, this.editedUser.homeLocation);
@@ -32,7 +33,7 @@ export class UserFormComponent implements OnInit {
       this.user = new User("", "", "", AccessLevel.USER, new Location(0, 0));
     }
 
-    this.mapClickingService.mapClicked$.subscribe((location: Location)=>{
+    this.mapEventsService.mapClicked$.subscribe((location: Location)=>{
       this.user.homeLocation = location;
     })
   }
