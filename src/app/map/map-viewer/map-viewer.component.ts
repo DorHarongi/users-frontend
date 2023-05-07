@@ -63,11 +63,10 @@ export class MapViewerComponent implements OnInit, OnDestroy {
       this.panQueue.push([newLat, newLng]);
     } else{
       // Lets compute the points we'll use
-      this.panPath.push([]); // 'release' this before calling setTimeout
       var curLat = this.map?.getCenter()?.lat();
       var curLng = this.map?.getCenter()?.lng();
     
-      if(curLat && curLng)
+      if(curLat != undefined && curLng != undefined)
       {
         var dLat = (newLat - curLat)/this.STEPS;
         var dLng = (newLng - curLng)/this.STEPS;
