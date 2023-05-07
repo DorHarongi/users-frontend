@@ -21,16 +21,16 @@ export class UsersListComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  openCreateForm(editedUser?: User): void{
-    if(editedUser) // editing user
+  openCreateForm(userToEdit?: User): void{
+    if(userToEdit) // we want to edit a user
     {
-      if(editedUser.name == this.editedUserName) // clicked on the same user were editing - close it.
+      if(!this.editedUserName || this.editedUserName == userToEdit.name) // clicked on the same user were editing - close it.
         this.toggleEditUser = !this.toggleEditUser;
-      this.editedUser = editedUser;
-      this.editedUserName = editedUser?.name;
+      this.editedUser = userToEdit;
+      this.editedUserName = userToEdit?.name;
       this.toggleCreateUser = false;
     }
-    else // creating user
+    else // we want to create a new user
     {
       this.toggleCreateUser = !this.toggleCreateUser;
       this.toggleEditUser = false;

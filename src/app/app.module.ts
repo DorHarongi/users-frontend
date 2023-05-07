@@ -19,7 +19,7 @@ export function loadUsers(userService: UserService): () => Promise<any> {
 
 export function createApollo(httpLink: HttpLink) {
   return {
-    link: httpLink.create({ uri: "http://localhost:3000/graphql"}),  // HERE WE WILL PUT OUR GRAPHQL URL
+    link: httpLink.create({ uri: "http://129.159.146.118:4900/graphql"}),  // HERE WE WILL PUT OUR GRAPHQL URL
     cache: new InMemoryCache(),
   };
 }
