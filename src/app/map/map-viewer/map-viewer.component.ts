@@ -25,7 +25,7 @@ export class MapViewerComponent implements OnInit, OnDestroy {
 
   panPath: number[][] = [];   // An array of points the current panning action will use
   panQueue: number[][] = [];  // An array of subsequent panTo actions to take
-  STEPS = 50;     // The number of steps that each panTo action will undergo
+  STEPS = 15;     // The number of steps that each panTo action will undergo
 
 
   ngOnInit(): void {
