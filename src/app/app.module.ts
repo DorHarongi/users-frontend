@@ -10,8 +10,7 @@ import { SidePanelModule } from './side-panel/side-panel.module';
 import { HttpLink } from 'apollo-angular/http';
 import { InMemoryCache } from '@apollo/client/core';
 import { HttpClientModule } from '@angular/common/http';
-
-
+import { AppRoutingModule } from './app-routing.module';
 
 export function loadUsers(userService: UserService): () => Promise<any> {
   return () => firstValueFrom(userService.getUsers());
@@ -35,7 +34,8 @@ export function createApollo(httpLink: HttpLink) {
     SidePanelModule,
     SharedModule,
     ApolloModule,
-    HttpClientModule
+    HttpClientModule,
+    AppRoutingModule
   ],
   providers: [
     {

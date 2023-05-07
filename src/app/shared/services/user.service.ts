@@ -11,20 +11,13 @@ import { CreateUserInput } from '../models/create-user-input.interface';
 
 export class UserService {
 
-  constructor(private apollo: Apollo) { 
-    this.usersChangedSubject = new Subject<void>();
-    this.usersChanged$ = this.usersChangedSubject.asObservable();
-  }
+  constructor(private apollo: Apollo) {   }
 
   users: Array<User> = [];
-
-  usersChanged$: Observable<void>;
-  private usersChangedSubject: Subject<void>;
 
   changeUsers(newUsers: Array<User>)
   {
     this.users = [...newUsers];
-    this.usersChangedSubject.next();
   }
 
   getUsers(): Observable<any> {

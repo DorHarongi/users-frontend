@@ -1,28 +1,41 @@
 <form ngNativeValidate (ngSubmit)="submit()">
     <table>
         <tr>
-            <td> Name: </td>
-            <td> <input name="name" required [(ngModel)]="user.name" [disabled]="isEditMode"> </td>
+            <td class="td-left"> Name: </td>
+            <td class="td-right"> <input name="name" required [(ngModel)]="user.name" [disabled]="isEditMode"> </td>
         </tr>
         <tr>
-            <td> Mail: </td>
-            <td> <input name="mail" type="email" required [(ngModel)]="user.email"> </td>
+            <td class="td-left"> Mail: </td>
+            <td class="td-right"> <input name="mail" type="email" required [(ngModel)]="user.email"> </td>
         </tr>
         <tr>
-            <td> Address: </td>
-            <td> <input name="address" required [(ngModel)]="user.address"> </td>
+            <td class="td-left"> Address: </td>
+            <td class="td-right"> <input name="address" required [(ngModel)]="user.address"> </td>
         </tr>
         <tr>
-            <td> AccessLevel: </td>
-            <td> <select name="accessLevel" required [(ngModel)]="user.accessLevel"> 
+            <td class="td-left"> AccessLevel: </td>
+            <td class="td-right"> <select name="accessLevel" required [(ngModel)]="user.accessLevel"> 
                 <option value="ADMIN"> Admin </option>
                 <option value="USER"> User </option>
             </select> </td>
         </tr>
         <tr>
-            <td> Home Location: </td>
-            <td *ngIf="user?.homeLocation">
-                {{user.homeLocation.longitude.toFixed(3)}} , {{user.homeLocation.latitude.toFixed(3)}}
+            <td class="td-left"> Home Location: </td>
+            <td class="td-right" *ngIf="user?.homeLocation">
+                <table>
+                    <tr>
+                        <td>long: </td>
+                        <td>
+                            <input name="long" type="number" step="any" required [(ngModel)]="user.homeLocation.longitude">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>lat: </td>
+                        <td>
+                            <input name="lat" type="number" step="any" required [(ngModel)]="user.homeLocation.latitude">
+                        </td>
+                    </tr>
+                </table>
             </td>
         </tr>
     </table>

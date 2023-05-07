@@ -1,10 +1,28 @@
 td{
     font-family: system-ui;
+    margin-top: 5%;
+}
+
+.td-left{
+    width: 30%;
+}
+
+.td-right{
+    width: 70%;
+}
+
+table{
+    width: 100%;
 }
 
 input, select{
     border-radius: 5px;
     margin-top: 1%;
+    width: max-content;
+}
+
+input{
+    max-width: 150px;
 }
 
 #submitButton{
