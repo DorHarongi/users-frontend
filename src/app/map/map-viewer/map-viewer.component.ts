@@ -25,14 +25,14 @@ export class MapViewerComponent implements OnInit, OnDestroy {
 
   panPath: number[][] = [];   // An array of points the current panning action will use
   panQueue: number[][] = [];  // An array of subsequent panTo actions to take
-  STEPS = 15;     // The number of steps that each panTo action will undergo
+  panningSteps = 50; // The number of steps that each panTo action will undergo
 
 
   ngOnInit(): void {
     this.addMarkersForUsers();
     this.doPan = this.doPan.bind(this);
     this.mapCenterChangedSubscription = this.mapEventsService.mapCenterChange$.subscribe((center: Location)=>{
-        this.panTo(center.latitude, center.longitude);
+      this.panTo(center.latitude, center.longitude);
     })
 
   this.usersChangedSubscription = this.userService.usersChanged$.subscribe(()=>{
@@ -63,15 +63,15 @@ export class MapViewerComponent implements OnInit, OnDestroy {
       this.panQueue.push([newLat, newLng]);
     } else{
       // Lets compute the points we'll use
-      var curLat = this.map?.getCenter()?.lat();
-      var curLng = this.map?.getCenter()?.lng();
+      let curLat = this.map?.getCenter()?.lat();
+      let curLng = this.map?.getCenter()?.lng();
     
       if(curLat != undefined && curLng != undefined)
       {
-        var dLat = (newLat - curLat)/this.STEPS;
-        var dLng = (newLng - curLng)/this.STEPS;
+        let dLat: number = (newLat - curLat) / this.panningSteps;
+        let dLng: number = (newLng - curLng) / this.panningSteps;
     
-        for (var i=0; i < this.STEPS; i++) {
+        for (let i = 0 ; i < this.panningSteps; i++) {
           this.panPath.push([curLat + dLat * i, curLng + dLng * i]);
         }
         this.panPath.push([newLat, newLng]);
@@ -86,7 +86,7 @@ export class MapViewerComponent implements OnInit, OnDestroy {
     if (next != null) {
       // Continue our current pan action
       this.map.panTo( new google.maps.LatLng(next[0], next[1]));
-      setTimeout(this.doPan, 20 );
+      setTimeout(this.doPan, 20);
     } else {
       // We are finished with this pan - check if there are any queue'd up locations to pan to 
       var queued = this.panQueue.shift();
